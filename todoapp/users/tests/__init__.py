@@ -1,0 +1,1 @@
+from .user import UserLoginAPIViewTestCase, UserRegistrationAPIViewTestCase, UserTokenAPIViewTestCase
