@@ -1,0 +1,251 @@
+{
+	"info": {
+		"_postman_id": "81f75981-69dc-4ceb-8dc1-102883cc53ea",
+		"name": "DRF-TDD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8eebcec-12a5-41cd-8a79-3c7cfeae405a",
+						"exec": [
+							"if (pm.response.code === 201) {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set('token', jsonData.token);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"fernanalegria\",\n\t\"password\": \"admin123\",\n\t\"confirm_password\": \"admin123\"\n}"
+				},
+				"url": {
+					"raw": "{{rootUrl}}/api/users/",
+					"host": [
+						"{{rootUrl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log in user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d4c9fb6-e140-4d18-85f4-43ee8ed1d05d",
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set('token', jsonData.auth_token);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"fernanalegria\",\n\t\"password\": \"admin123\"\n}"
+				},
+				"url": {
+					"raw": "{{rootUrl}}/api/users/login/",
+					"host": [
+						"{{rootUrl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create TODO",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"First TODO\"\n}"
+				},
+				"url": {
+					"raw": "{{rootUrl}}/api/todos/",
+					"host": [
+						"{{rootUrl}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update TODO",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"First TODO modified\"\n}"
+				},
+				"url": {
+					"raw": "{{rootUrl}}/api/todos/1/",
+					"host": [
+						"{{rootUrl}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Partial update TODO",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"First TODO modified\"\n}"
+				},
+				"url": {
+					"raw": "{{rootUrl}}/api/todos/1/",
+					"host": [
+						"{{rootUrl}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read TODO",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{rootUrl}}/api/todos/1/",
+					"host": [
+						"{{rootUrl}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read TODOS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{rootUrl}}/api/todos/",
+					"host": [
+						"{{rootUrl}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete TODO",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{rootUrl}}/api/todos/1/",
+					"host": [
+						"{{rootUrl}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e75cfc2a-ab07-48a6-8fd9-e1e8a675d671",
+				"type": "text/javascript",
+				"exec": [
+					"var token = pm.environment.get('token');",
+					"",
+					"pm.request.headers.add({",
+					"    key: 'Content-Type',",
+					"    value: 'application/json'",
+					"});",
+					"pm.request.headers.add({",
+					"    key: 'Authorization',",
+					"    value: \"Token \" + token",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "49bb96b4-2f84-4be9-91a2-c339e5935687",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
